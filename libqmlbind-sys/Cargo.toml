@@ -1,10 +1,9 @@
 [package]
 name = "libqmlbind-sys"
 version = "0.0.1"
-authors = ["Nicolas Bigaouette" <nbigaouette@gmail.com>"]
+authors = ["Nicolas Bigaouette <nbigaouette@gmail.com>"]
 
 description = "Unsafe bindings to the C library libqmlbind"
 keywords = ["QML", "QtQuick", "Qt", "GUI", "libqmlbind"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
-
