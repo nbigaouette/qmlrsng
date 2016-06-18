@@ -7,3 +7,6 @@ description = "Unsafe bindings to the C library libqmlbind"
 keywords = ["QML", "QtQuick", "Qt", "GUI", "libqmlbind"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
+
+[lib]
+name = "libqmlbind_sys"
