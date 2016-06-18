@@ -1,0 +1,13 @@
+[package]
+name = "qmlrsng"
+version = "0.0.1"
+authors = ["Nicolas Bigaouette" <nbigaouette@gmail.com>"]
+
+description = "qmlrsng - QtQuick bindings for Rust"
+keywords = ["QML", "QtQuick", "Qt", "GUI", "libqmlbind"]
+license = "MIT/Apache-2.0"
+readme = "README.md"
+
+[dependencies.libqmlbind-sys]
+version = "0.0.1"
+path = "libqmlbind-sys"
