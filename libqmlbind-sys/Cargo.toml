@@ -8,6 +8,9 @@ keywords = ["QML", "QtQuick", "Qt", "GUI", "libqmlbind"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
 
+build = "build.rs"
+
+
 [lib]
 name = "libqmlbind_sys"
 
