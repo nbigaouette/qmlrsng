@@ -1,15 +1,8 @@
 # qmlrsng - [QtQuick](http://doc.qt.io/qt-5/qtquick-index.html) bindings for Rust
 
 
-Based on [libqmlbind](https://github.com/seanchas116/libqmlbind). You'll need
-it first:
-```
-git clone --recursive git@github.com:seanchas116/libqmlbind.git
-mkdir libqmlbind/build
-cd libqmlbind/build
-qmake -r ..
-make
-```
+Based on [libqmlbind](https://github.com/seanchas116/libqmlbind).
+
 
 ## Licensing
 
