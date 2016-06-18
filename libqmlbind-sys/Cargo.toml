@@ -10,3 +10,6 @@ readme = "README.md"
 
 [lib]
 name = "libqmlbind_sys"
+
+[dependencies]
+libc = "0.2"
