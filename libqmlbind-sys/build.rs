@@ -27,9 +27,12 @@ fn main() {
     //            -I${QTDIR}/include/QtGui -I${QTDIR}/include/QtNetwork"
     // QT_LIBS="-F${QTDIR}/lib -framework QtCore -framework QtNetwork -framework QtGui -framework QtWidgets" ./configure --with-gui=qt5
     // QT_LIBS="-F${QTDIR}/lib -framework QtCore -framework QtNetwork -framework QtGui -framework QtWidgets"
-    let QTDIR = String::from("/Users/nicolas/Qt/5.6/clang_64/lib");
+    // let qtdir = String::from("/Users/nicolas/Qt/5.6/clang_64/lib");
+    let qtdir = String::from("/Users/nicolas/Qt/5.7/clang_64/lib");
 
-    println!("cargo:rustc-flags=-L framework={}", QTDIR);
+    println!("cargo:rustc-link-search=framework={}", qtdir);
+    // println!("cargo:rustc-flags=-L framework={}", qtdir);
+
     println!("cargo:rustc-link-lib=framework=QtCore");
     println!("cargo:rustc-link-lib=framework=QtNetwork");
     println!("cargo:rustc-link-lib=framework=QtGui");
