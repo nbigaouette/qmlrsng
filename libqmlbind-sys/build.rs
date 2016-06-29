@@ -36,6 +36,7 @@ fn main() {
     println!("cargo:rustc-link-lib=framework=QtCore");
     println!("cargo:rustc-link-lib=framework=QtNetwork");
     println!("cargo:rustc-link-lib=framework=QtGui");
+    println!("cargo:rustc-link-lib=framework=QtQml");
     println!("cargo:rustc-link-lib=framework=QtWidgets");
 
     println!("cargo:rustc-flags=-l stdc++");
