@@ -1,7 +1,11 @@
 #!/bin/bash
 
-QTDIR="${HOME}/Qt/5.7/clang_64"
+# Default values
 QTMAJVER="5"
+QTMINVER="${QTMINVER:-7}"
+QTCOMPARCH="${QTCOMPARCH:-clang_64}"
+
+QTDIR="${QTDIR:-${HOME}/Qt/${QTMAJVER}.${QTMINVER}/${QTCOMPARCH}}"
 binary="target/debug/examples/hello_world"
 
 components=(QtCore QtNetwork QtGui QtQml QtWidgets)
