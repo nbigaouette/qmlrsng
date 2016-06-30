@@ -1,6 +1,6 @@
 #!/bin/bash
 
-QTDIR="/Users/nicolas/Qt/5.7/clang_64"
+QTDIR="${HOME}/Qt/5.7/clang_64"
 QTMAJVER="5"
 binary="target/debug/examples/hello_world"
 
