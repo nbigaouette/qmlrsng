@@ -77,3 +77,11 @@ elsewhere.
 **NOTE** Untested using Qt from homebrew.
 
 ![hello_world](examples/hello_world.png)
+
+
+
+
+## Licensing
+
+The code in this library is dual-licensed under the MIT license and the
+Apache License (version 2.0). See [LICENSE-APACHE](./LICENSE-APACHE) and [LICENSE-MIT](./LICENSE-MIT) for details.
