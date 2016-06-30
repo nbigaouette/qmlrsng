@@ -2,7 +2,7 @@
 
 QTDIR="/Users/nicolas/Qt/5.7/clang_64"
 QTMAJVER="5"
-binary="target/debug/examples/main"
+binary="target/debug/examples/hello_world"
 
 components=(QtCore QtNetwork QtGui QtQml QtWidgets)
 
