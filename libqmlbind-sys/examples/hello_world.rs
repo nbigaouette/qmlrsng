@@ -31,5 +31,10 @@ fn main() {
         let instance = ffi::qmlbind_component_create(component);
 
         let exit_code = ffi::qmlbind_application_exec(app);
+
+        ffi::qmlbind_value_release(instance);
+        ffi::qmlbind_component_release(component);
+        ffi::qmlbind_engine_release(engine);
+        ffi::qmlbind_application_release(app);
     }
 }
