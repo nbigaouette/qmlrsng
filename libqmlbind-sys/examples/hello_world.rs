@@ -21,7 +21,7 @@ fn main() {
         let app = ffi::qmlbind_application_new(c_args.len() as c_int, c_args.as_ptr());
         let engine = ffi::qmlbind_engine_new();
         let component = ffi::qmlbind_component_new(engine);
-        ffi::qmlbind_component_load_path(component, CString::new("main.qml").unwrap().as_ptr());
+        ffi::qmlbind_component_load_path(component, CString::new("examples/hello_world.qml").unwrap().as_ptr());
 
         let errorString = ffi::qmlbind_component_get_error_string(component);
         println!("errorString: {:?}", errorString);
