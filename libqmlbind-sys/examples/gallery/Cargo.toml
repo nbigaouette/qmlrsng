@@ -1,0 +1,14 @@
+[package]
+name = "gallery"
+version = "0.0.1"
+authors = ["Nicolas Bigaouette <nbigaouette@gmail.com>"]
+
+description = "Port to rust of the QtQuick Controls 'gallery' example"
+keywords = ["QML", "QtQuick", "Qt", "GUI", "libqmlbind"]
+license = "MIT/Apache-2.0"
+
+# build = "build.rs"
+
+[dependencies]
+libqmlbind-sys = { path = "../../../libqmlbind-sys" }
+libc = "0.2"
