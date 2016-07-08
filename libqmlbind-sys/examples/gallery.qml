@@ -1,1 +1,1 @@
-gallery/gallery.qml
+gallery/src/gallery.qml

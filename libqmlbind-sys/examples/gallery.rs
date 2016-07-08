@@ -1,1 +1,1 @@
-gallery/gallery.rs
+gallery/src/gallery.rs
