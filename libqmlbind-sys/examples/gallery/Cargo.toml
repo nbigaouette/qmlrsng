@@ -7,7 +7,7 @@ description = "Port to rust of the QtQuick Controls 'gallery' example"
 keywords = ["QML", "QtQuick", "Qt", "GUI", "libqmlbind"]
 license = "MIT/Apache-2.0"
 
-# build = "build.rs"
+build = "build.rs"
 
 [dependencies]
 libqmlbind-sys = { path = "../../../libqmlbind-sys" }
