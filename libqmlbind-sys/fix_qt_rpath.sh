@@ -12,11 +12,16 @@ components=(QtCore QtNetwork QtGui QtQml QtWidgets)
 
 for example in examples/*.rs; do
     binary=`echo ${example} | sed 's|examples/\(.*\).rs|\1|g'`
+    echo "Example: ${example}"
     for build in "debug" "release"; do
-        binary="target/${build}/exmaples/${binary}"
-        if [[ -f ${binary} ]]; then
+        echo "    Build: ${build}"
+        bin="target/${build}/examples/${binary}"
+        echo "        ${bin}"
+        if [[ -f ${bin} ]]; then
+            echo "        bin: ${bin}"
             for component in ${components[*]}; do
-                install_name_tool -change @rpath/${component}.framework/Versions/${QTMAJVER}/${component} ${QTDIR}/lib/${component}.framework/Versions/${QTMAJVER}/${component} ${binary}
+                echo "            component: ${component}"
+                install_name_tool -change @rpath/${component}.framework/Versions/${QTMAJVER}/${component} ${QTDIR}/lib/${component}.framework/Versions/${QTMAJVER}/${component} ${bin}
             done
         fi
     done
