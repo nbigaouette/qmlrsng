@@ -5,6 +5,7 @@ use libc::c_char;
 use libc::c_int;
 
 use std::ffi::CString;
+use std::ffi::CStr;
 
 
 fn main() {
@@ -26,8 +27,11 @@ fn main() {
 
         let errorString = ffi::qmlbind_component_get_error_string(component);
         println!("errorString: {:?}", errorString);
-        // let errorChar = ffi::qmlbind_string_get_chars(errorString);
-        // println!("errorChar: {:?}", errorChar);
+        // let errorChar = CString::from_raw(ffi::qmlbind_string_get_chars(errorString));
+        let errorChar = CStr::from_ptr(ffi::qmlbind_string_get_chars(errorString));
+
+        // let errorChar = std::str::from_utf8(ffi::qmlbind_string_get_chars(errorString));
+        println!("errorChar: {:?}", errorChar);
 
         let instance = ffi::qmlbind_component_create(component);
 
