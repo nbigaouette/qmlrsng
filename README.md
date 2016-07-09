@@ -10,6 +10,10 @@ abstraction over the `libqmlbind-sys` crate.
 **NOTE**: This create is empty for the moment, waiting for a workable `libqmlbind-sys` crate.
 
 
+[![Build Status](https://travis-ci.org/nbigaouette/qmlrsng.svg?branch=master)](https://travis-ci.org/nbigaouette/qmlrsng)
+
+
+
 ## Synopsis
 
 Rust is a fantastic programming language. It exposes high level features that
