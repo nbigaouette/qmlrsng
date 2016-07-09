@@ -24,3 +24,7 @@ addons:
   apt:
     packages:
       - xvfb
+
+
+# Test libqmlbind-sys only for now
+script: sh -c 'cd libqmlbind-sys && cargo build'
