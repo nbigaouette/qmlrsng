@@ -61,5 +61,5 @@ fn main() {
     assert!(output.status.success(), "failed to execute make process");
 
     println!("cargo:rustc-link-search={}", out_dir);
-    println!("cargo:rustc-link-lib=galleryresources");
+    println!("cargo:rustc-link-lib=static=galleryresources");
 }
