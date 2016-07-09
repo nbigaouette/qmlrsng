@@ -13,11 +13,10 @@ fn main() {
     let current_dir = env::current_dir().unwrap();
     let src_dir = current_dir.join("src");
 
-    let home_dir = env::home_dir().map(|p| PathBuf::from(p)).unwrap();
-
     let qt_dir = env::var("QT_DIR").map(|p| PathBuf::from(p)).unwrap_or({
         println!("Environnement variable 'QT_DIR' not set!");
         println!("Defaulting to ${{HOME}}/Qt/${{QT_VER}}/${{QT_COMP}} where:");
+        let home_dir = env::home_dir().map(|p| PathBuf::from(p)).unwrap();
         let default_qt_ver = "5.7".to_string();
         let default_qt_comp = if target.contains("linux") {
             "gcc_64".to_string()
