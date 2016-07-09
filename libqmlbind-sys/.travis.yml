@@ -1,0 +1,26 @@
+language: rust
+rust:
+  - stable
+  - beta
+  - nightly
+matrix:
+  allow_failures:
+    - rust: nightly
+
+os:
+  - linux
+  - osx
+
+env:
+  global:
+    - QT_VERSION=qt:5.6.1
+    - QT_VERSION=qt:5.7.0
+    # - QT_DIR="${TRAVIS_BUILD_DIR}/vendor/qt5"
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - xvfb
