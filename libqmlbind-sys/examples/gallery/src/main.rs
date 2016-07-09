@@ -22,10 +22,10 @@ fn main() {
         let component = ffi::qmlbind_component_new(engine);
         ffi::qmlbind_component_load_url(component, CString::new("qrc:/gallery.qml").unwrap().as_ptr());
 
-        let errorString = ffi::qmlbind_component_get_error_string(component);
-        if !errorString.is_null() {
-            let errorChar = CStr::from_ptr(ffi::qmlbind_string_get_chars(errorString));
-            println!("Error loading component: {:?}", errorChar);
+        let error_string = ffi::qmlbind_component_get_error_string(component);
+        if !error_string.is_null() {
+            let error_char = CStr::from_ptr(ffi::qmlbind_string_get_chars(error_string));
+            println!("Error loading component: {:?}", error_char);
         }
 
         let instance = ffi::qmlbind_component_create(component);
