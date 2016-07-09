@@ -1,5 +1,12 @@
 # gallery
 
+**NOTE**: The `gallery` example is a QML showcase of Qt Quick Controls 2,
+which requires with Qt 5.7.
+
+
+![Screenshot](gallery.png)
+
+
 This example requires a build script to compile the resource as a library
 and link it.
 
