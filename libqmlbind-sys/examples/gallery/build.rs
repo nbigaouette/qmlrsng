@@ -10,8 +10,8 @@ fn main() {
 
     // http://doc.crates.io/build-script.html#inputs-to-the-build-script
     // "the build script’s current directory is the source directory of the build script’s package."
-    let pwd = env::current_dir().unwrap();
-    let src = pwd.join("src");
+    let current_dir = env::current_dir().unwrap();
+    let src_dir = current_dir.join("src");
 
     let home_dir = env::home_dir().map(|p| PathBuf::from(p)).unwrap();
 
@@ -51,7 +51,7 @@ fn main() {
     //                               .expect("failed to execute 'rcc' process");
 
     // Run qmake to create a library with the reousrce file
-    let output = Command::new(qmake).args(&[src])
+    let output = Command::new(qmake).args(&[src_dir])
                                   .current_dir(&Path::new(&out_dir))
                                   .output()
                                   .expect("failed to execute 'qmake' process");
