@@ -9,8 +9,6 @@ use std::ffi::CStr;
 
 
 fn main() {
-    println!("libqmlbind-sys example");
-
     // Port of https://github.com/seanchas116/libqmlbind/blob/master/examples/hello_world_window/main.c
 
     // http://stackoverflow.com/a/34379937/178154
@@ -22,16 +20,13 @@ fn main() {
         let app = ffi::qmlbind_application_new(c_args.len() as c_int, c_args.as_ptr());
         let engine = ffi::qmlbind_engine_new();
         let component = ffi::qmlbind_component_new(engine);
-        // ffi::qmlbind_component_load_path(component, CString::new("examples/gallery.qml").unwrap().as_ptr());
         ffi::qmlbind_component_load_url(component, CString::new("qrc:/gallery.qml").unwrap().as_ptr());
 
         let errorString = ffi::qmlbind_component_get_error_string(component);
-        println!("errorString: {:?}", errorString);
-        // let errorChar = CString::from_raw(ffi::qmlbind_string_get_chars(errorString));
-        // let errorChar = CStr::from_ptr(ffi::qmlbind_string_get_chars(errorString));
-
-        // let errorChar = std::str::from_utf8(ffi::qmlbind_string_get_chars(errorString));
-        // println!("errorChar: {:?}", errorChar);
+        if !errorString.is_null() {
+            let errorChar = CStr::from_ptr(ffi::qmlbind_string_get_chars(errorString));
+            println!("Error loading component: {:?}", errorChar);
+        }
 
         let instance = ffi::qmlbind_component_create(component);
 
