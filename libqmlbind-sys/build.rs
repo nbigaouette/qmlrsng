@@ -61,5 +61,12 @@ fn main() {
     println!("cargo:rustc-link-lib{}=Qt{}Qml", osx_framework, linux_qt_lib_ver);
     println!("cargo:rustc-link-lib{}=Qt{}Widgets", osx_framework, linux_qt_lib_ver);
 
+    // On Linux, Qt needs icui18n, icuuc and icudata
+    if target.contains("linux") {
+        println!("cargo:rustc-link-lib=icui18n");
+        println!("cargo:rustc-link-lib=icuuc");
+        println!("cargo:rustc-link-lib=icudata");
+    }
+
     println!("cargo:rustc-flags=-l stdc++");
 }
