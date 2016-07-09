@@ -6,21 +6,29 @@ use std::env;
 
 fn main() {
     let target = env::var("TARGET").unwrap();
+    // let out_dir = env::var("OUT_DIR").unwrap();
+    let current_dir = env::current_dir().unwrap();
+
+    // println!("target:      {:?}", target);
+    // println!("out_dir:     {:?}", out_dir);
+    // println!("current_dir: {:?}", current_dir);
+
+    let libqmlbind_dir = current_dir.join("libqmlbind");
+    let libqmlbind_build_dir = libqmlbind_dir.join("qmlbind");
 
     // Initialize git submodule
-    if !Path::new("libqmlbind/.git").exists() {
+    if !libqmlbind_dir.join(".git").exists() {
         let _ = Command::new("git").args(&["submodule", "update", "--init"])
                                    .status();
     }
 
-    Command::new("qmake").current_dir("libqmlbind").output().unwrap();
-    Command::new("make").current_dir("libqmlbind").output().unwrap();
-    Command::new("make").arg("staticlib").current_dir("libqmlbind/qmlbind").output().unwrap();
+    Command::new("qmake").current_dir(&libqmlbind_dir).output().unwrap();
+    Command::new("make").current_dir(&libqmlbind_dir).output().unwrap();
+    Command::new("make").arg("staticlib").current_dir(&libqmlbind_build_dir).output().unwrap();
 
 
-    println!("cargo:rustc-flags=-L libqmlbind/qmlbind");
+    println!("cargo:rustc-link-search={}", libqmlbind_build_dir.to_str().unwrap());
     println!("cargo:rustc-link-lib=static=qmlbind");
-    // println!("cargo:rustc-link-lib=qmlbind");
 
 
     let qt_dir = env::var("QT_DIR").map(|p| PathBuf::from(p)).unwrap_or({
