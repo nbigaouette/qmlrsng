@@ -15,14 +15,16 @@ fn main() {
     let libqmlbind_dir = current_dir.join("libqmlbind");
     let libqmlbind_build_dir = libqmlbind_dir.join("build");
 
+    std::fs::create_dir_all(&libqmlbind_build_dir).unwrap();
+
     // Initialize git submodule
     if !libqmlbind_dir.join(".git").exists() {
         let _ = Command::new("git").args(&["submodule", "update", "--init"])
                                    .status();
     }
 
-    Command::new("qmake").current_dir(&libqmlbind_dir).output().unwrap();
-    Command::new("make").current_dir(&libqmlbind_dir).output().unwrap();
+    Command::new("qmake").arg("../qmlbind").current_dir(&libqmlbind_build_dir).output().unwrap();
+    Command::new("make").current_dir(&libqmlbind_build_dir).output().unwrap();
     Command::new("make").arg("staticlib").current_dir(&libqmlbind_build_dir).output().unwrap();
 
 
