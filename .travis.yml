@@ -33,5 +33,6 @@ script:
   - sh -c 'cd libqmlbind-sys && cargo build --verbose ||:'
   - find . -name "libqmlbind*" | sort
   - ls libqmlbind-sys/libqmlbind/qmlbind
+  - ls libqmlbind-sys/libqmlbind/build
   # Force failure
   - sh -c 'exit 1'
