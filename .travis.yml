@@ -16,6 +16,8 @@ os:
 before_install:
   # - sudo add-apt-repository ppa:beineri/opt-qt56 -y
   - sudo add-apt-repository ppa:beineri/opt-qt57 -y
+  - sudo apt-get update -qq
+
 install:
   # - sudo apt-get install qt56-meta qt56base
   - sudo apt-get install qt57-meta qt57base
