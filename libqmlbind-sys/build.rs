@@ -13,7 +13,7 @@ fn main() {
     // println!("current_dir: {:?}", current_dir);
 
     let libqmlbind_dir = current_dir.join("libqmlbind");
-    let libqmlbind_build_dir = libqmlbind_dir.join("qmlbind");
+    let libqmlbind_build_dir = libqmlbind_dir.join("build");
 
     // Initialize git submodule
     if !libqmlbind_dir.join(".git").exists() {
