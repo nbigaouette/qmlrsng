@@ -8,10 +8,11 @@ matrix:
     - rust: nightly
 
 sudo: required
+dist: trusty
 
-os:
-  - linux
-  # - osx
+# os:
+#   - linux
+#   # - osx
 
 before_install:
   # - sudo add-apt-repository ppa:beineri/opt-qt56 -y
