@@ -27,4 +27,4 @@ addons:
 
 
 # Test libqmlbind-sys only for now
-script: sh -c 'cd libqmlbind-sys && cargo build'
+script: sh -c 'cd libqmlbind-sys && cargo build --verbose'
