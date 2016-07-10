@@ -31,7 +31,7 @@ script:
   # - sh -c 'cd libqmlbind-sys && cargo build --verbose'
   # Ignore error from cargo
   - sh -c 'cd libqmlbind-sys && cargo build --verbose ||:'
-  - find . -name "libqmlbind*"
+  - find . -name "libqmlbind*" | sort
   - ls libqmlbind-sys/libqmlbind/qmlbind
   - tree
   # Force failure
