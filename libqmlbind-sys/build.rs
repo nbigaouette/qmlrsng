@@ -23,9 +23,27 @@ fn main() {
                                    .status();
     }
 
-    Command::new("qmake").arg("../qmlbind").current_dir(&libqmlbind_build_dir).output().unwrap();
-    Command::new("make").current_dir(&libqmlbind_build_dir).output().unwrap();
-    Command::new("make").arg("staticlib").current_dir(&libqmlbind_build_dir).output().unwrap();
+    let output = Command::new("qmake").arg("../qmlbind")
+                                      .current_dir(&libqmlbind_build_dir)
+                                      .output().unwrap();
+    println!("output.status: {}", output.status);
+    println!("output.stdout: {}", String::from_utf8_lossy(&output.stdout));
+    println!("output.stderr: {}", String::from_utf8_lossy(&output.stderr));
+    assert!(output.status.success(), "failed to execute qmake process");
+
+    let output = Command::new("make").current_dir(&libqmlbind_build_dir).output().unwrap();
+    println!("output.status: {}", output.status);
+    println!("output.stdout: {}", String::from_utf8_lossy(&output.stdout));
+    println!("output.stderr: {}", String::from_utf8_lossy(&output.stderr));
+    assert!(output.status.success(), "failed to execute make process");
+
+    let output = Command::new("make").arg("staticlib")
+                                     .current_dir(&libqmlbind_build_dir)
+                                     .output().unwrap();
+    println!("output.status: {}", output.status);
+    println!("output.stdout: {}", String::from_utf8_lossy(&output.stdout));
+    println!("output.stderr: {}", String::from_utf8_lossy(&output.stderr));
+    assert!(output.status.success(), "failed to execute 'make staticlib' process");
 
 
     println!("cargo:rustc-link-search={}", libqmlbind_build_dir.to_str().unwrap());
