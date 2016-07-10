@@ -7,6 +7,8 @@ matrix:
   allow_failures:
     - rust: nightly
 
+sudo: required
+
 os:
   - linux
   # - osx
