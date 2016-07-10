@@ -30,6 +30,7 @@ script:
   # Ignore error from cargo
     # - QT_DIR="${TRAVIS_BUILD_DIR}/vendor/qt5"
   - source /opt/qt57/bin/qt57-env.sh
+  - export QT_DIR=/opt/qt57
   - sh -c 'cd libqmlbind-sys && cargo build --verbose'
   # - sh -c 'cd libqmlbind-sys && cargo build --verbose ||:'
   - find . -name "libqmlbind*" | sort
