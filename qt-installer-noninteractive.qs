@@ -22,7 +22,7 @@ Controller.prototype.IntroductionPageCallback = function() {
 
 Controller.prototype.TargetDirectoryPageCallback = function()
 {
-    gui.currentPageWidget().TargetDirectoryLineEdit.setText(installer.value("HomeDir") + "/Qt");
+    gui.currentPageWidget().TargetDirectoryLineEdit.setText(installer.value("HomeDir") + "/QtTravis");
     gui.clickButton(buttons.NextButton);
 }
 
@@ -34,8 +34,8 @@ Controller.prototype.ComponentSelectionPageCallback = function() {
     widget.selectComponent("qt.57.clang_64");
     // widget.selectComponent("qt.57.gcc_64");
 
-    widget.selectComponent("qt.56.clang_64");
-    widget.selectComponent("qt.56.qtquickcontrols");
+    // widget.selectComponent("qt.56.clang_64");
+    // widget.selectComponent("qt.56.qtquickcontrols");
     // widget.selectComponent("qt.56.gcc_64");
     // widget.selectComponent("qt.56.qtquickcontrols");
 
@@ -50,7 +50,7 @@ Controller.prototype.ComponentSelectionPageCallback = function() {
     // widget.deselectComponent("qt.tools.doc");
     // widget.deselectComponent("qt.tools.examples");
 
-    gui.clickButton(buttons.NextButton);
+    // gui.clickButton(buttons.NextButton);
 }
 
 Controller.prototype.LicenseAgreementPageCallback = function() {
