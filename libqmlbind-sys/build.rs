@@ -4,9 +4,9 @@ use std::env;
 
 
 fn main() {
-    let target = env::var("TARGET").unwrap();
-    // let out_dir = env::var("OUT_DIR").unwrap();
-    let current_dir = env::current_dir().unwrap();
+    let target = env::var("TARGET").expect("Environnement variable TARGET not set");
+    // let out_dir = env::var("OUT_DIR").expect("Failed to get output directory");
+    let current_dir = env::current_dir().expect("Failed to get current directory");
 
     // println!("target:      {:?}", target);
     // println!("out_dir:     {:?}", out_dir);
@@ -15,23 +15,28 @@ fn main() {
     let libqmlbind_dir = current_dir.join("libqmlbind");
     let libqmlbind_build_dir = libqmlbind_dir.join("build");
 
-    std::fs::create_dir_all(&libqmlbind_build_dir).unwrap();
+    std::fs::create_dir_all(&libqmlbind_build_dir).unwrap_or_else(|e| panic!("Failed to create libqmlbind build directory: {}", e));
 
     // Initialize git submodule
     if !libqmlbind_dir.join(".git").exists() {
         let _ = Command::new("git").args(&["submodule", "update", "--init"])
-                                   .status();
+                                   .status()
+                                   .unwrap_or_else(|e| panic!("Failed to initialize git submodule: {}", e));
     }
 
     let output = Command::new("qmake").arg("../qmlbind")
                                       .current_dir(&libqmlbind_build_dir)
-                                      .output().unwrap();
+                                      .output()
+                                      .unwrap_or_else(|e| panic!("Failed execute qmake: {}", e));
     println!("output.status: {}", output.status);
     println!("output.stdout: {}", String::from_utf8_lossy(&output.stdout));
     println!("output.stderr: {}", String::from_utf8_lossy(&output.stderr));
     assert!(output.status.success(), "failed to execute qmake process");
 
-    let output = Command::new("make").current_dir(&libqmlbind_build_dir).output().unwrap();
+    let output = Command::new("make")
+                                .current_dir(&libqmlbind_build_dir)
+                                .output()
+                                .unwrap_or_else(|e| panic!("Failed execute make : {}", e));
     println!("output.status: {}", output.status);
     println!("output.stdout: {}", String::from_utf8_lossy(&output.stdout));
     println!("output.stderr: {}", String::from_utf8_lossy(&output.stderr));
@@ -39,7 +44,8 @@ fn main() {
 
     let output = Command::new("make").arg("staticlib")
                                      .current_dir(&libqmlbind_build_dir)
-                                     .output().unwrap();
+                                     .output()
+                                     .unwrap_or_else(|e| panic!("Failed execute 'make staticlib': {}", e));
     println!("output.status: {}", output.status);
     println!("output.stdout: {}", String::from_utf8_lossy(&output.stdout));
     println!("output.stderr: {}", String::from_utf8_lossy(&output.stderr));
