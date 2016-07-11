@@ -43,4 +43,5 @@ script:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then source /opt/qt${QT_VER}/bin/qt${QT_VER}-env.sh; fi
   - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then export QT_DIR=/usr/local/Cellar/qt5/${QT_BASE_DOT}/; fi
   - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then export PATH=/usr/local/Cellar/qt5/${QT_BASE_DOT}/bin:${PATH}; fi
+  - which qmake
   - sh -c 'cd libqmlbind-sys && cargo build --verbose'
