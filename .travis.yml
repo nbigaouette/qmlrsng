@@ -16,6 +16,7 @@ sudo: required
 dist: trusty
 
 env:
+  - RUST_BACKTRACE=1
   - QT_BASE=561
   - QT_BASE=57
 
