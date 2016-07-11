@@ -7,12 +7,16 @@ matrix:
   allow_failures:
     - rust: nightly
 
+sudo: required
+dist: trusty
+
 # sudo: required
 # dist: trusty
 
 env:
-  - QT_DIR=${HOME}/Qt/5.6
-  - QT_DIR=${HOME}/Qt/5.7
+  # - QT_DIR=${HOME}/Qt/5.6
+  # - QT_DIR=${HOME}/Qt/5.7
+  - QT_DIR=/opt/qt57
 
 os:
   - linux
@@ -26,14 +30,17 @@ before_install:
   # linux: sha256: f80ec4cf337d342b5e638bb7224b544fd4558a2ee0aca1929712c9c9e91351d7
   # - [[ "${TRAVIS_OS_NAME}" == "osx" ]]   && wget http://download.qt.io/official_releases/online_installers/qt-unified-mac-x64-online.dmg
   # mac: sha256: 623d4ce1648acc0e040f504afe64702b9bcb2c1fb87055c2e1990abcf1942c73
-  - wget http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run
+  # - wget http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run
 
 install:
   # - sudo apt-get install qt56-meta qt56base
   # - sudo apt-get install qt57-meta qt57base
-  - chmod +x qt-unified-linux-x64-online.run
-  - ./qt-unified-linux-x64-online.run --verbose --script qt-installer-noninteractive.qs
-
+  # - chmod +x qt-unified-linux-x64-online.run
+  # - ./qt-unified-linux-x64-online.run --verbose --script qt-installer-noninteractive.qs
+  # - sudo add-apt-repository -y ppa:beineri/opt-qt561-trusty
+  - sudo add-apt-repository -y ppa:beineri/opt-qt57-trusty
+  - sudo apt-get update
+  - sudo apt-get -y install qt56quickcontrols qt56quickcontrols2
 
 
 # Test libqmlbind-sys only for now
@@ -43,8 +50,11 @@ script:
     # - QT_DIR="${TRAVIS_BUILD_DIR}/vendor/qt5"
   # - source /opt/qt57/bin/qt57-env.sh
   # - export QT_DIR=/opt/qt57
-  - sh -c 'cd libqmlbind-sys && cargo build --verbose'
+  # - sh -c 'cd libqmlbind-sys && cargo build --verbose'
   # - sh -c 'cd libqmlbind-sys && cargo build --verbose ||:'
+  # - source /opt/qt56/bin/qt56-env.sh
+  - source /opt/qt57/bin/qt57-env.sh
+  - sh -c 'cd libqmlbind-sys && cargo build --verbose'
   - find . -name "libqmlbind*" | sort
   - ls libqmlbind-sys/libqmlbind/qmlbind
   - ls libqmlbind-sys/libqmlbind/build
