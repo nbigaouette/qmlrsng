@@ -30,7 +30,7 @@ before_install:
   - export QT_BASE_DOT=`echo ${QT_BASE} | sed 's/\(.\)/\1./g;s/\.$//'`
 
 install:
-  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then sudo add-apt-repository -y ppa:beineri/opt-qt${QT_VER}-trusty; fi
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then sudo add-apt-repository -y ppa:beineri/opt-qt${QT_BASE}-trusty; fi
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then sudo apt-get update; fi
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then sudo apt-get -y install qt${QT_VER}quickcontrols qt${QT_VER}quickcontrols2; fi
   - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then   brew update; fi
