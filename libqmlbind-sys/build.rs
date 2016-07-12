@@ -49,6 +49,12 @@ fn main() {
 
     std::fs::create_dir_all(&libqmlbind_build_dir).unwrap_or_else(|e| panic!("Failed to create libqmlbind build directory: {}", e));
 
+    println!("current_dir: {:?}", current_dir);
+    println!("libqmlbind_dir: {:?}", libqmlbind_dir);
+    println!("libqmlbind_build_dir: {:?}", libqmlbind_build_dir);
+    println!("qt_lib_dir: {:?}", qt_lib_dir);
+    println!("qt_bin_dir: {:?}", qt_bin_dir);
+
     let output = Command::new(qt_bin_dir.join("qmake")).arg("../qmlbind")
                                       .current_dir(&libqmlbind_build_dir)
                                       .output()
