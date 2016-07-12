@@ -40,14 +40,14 @@ fn main() {
     let qt_lib_dir = qt_dir.join("lib");
     let qt_bin_dir = qt_dir.join("bin");
 
-    std::fs::create_dir_all(&libqmlbind_build_dir).unwrap_or_else(|e| panic!("Failed to create libqmlbind build directory: {}", e));
-
     // Initialize git submodule
     if !libqmlbind_dir.join(".git").exists() {
         let _ = Command::new("git").args(&["submodule", "update", "--init"])
                                    .status()
                                    .unwrap_or_else(|e| panic!("Failed to initialize git submodule: {}", e));
     }
+
+    std::fs::create_dir_all(&libqmlbind_build_dir).unwrap_or_else(|e| panic!("Failed to create libqmlbind build directory: {}", e));
 
     let output = Command::new(qt_bin_dir.join("qmake")).arg("../qmlbind")
                                       .current_dir(&libqmlbind_build_dir)
