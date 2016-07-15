@@ -5,16 +5,14 @@ use libc::c_char;
 use libc::c_int;
 
 use std::ffi::CString;
-// use std::sync::Arc;
 
 
-
-struct EngineInternal {
+pub struct Engine {
     app: *mut ffi::qmlbind_application,
     engine: *mut ffi::qmlbind_engine,
 }
 
-impl Drop for EngineInternal {
+impl Drop for Engine {
     fn drop(&mut self) {
         unsafe {
             // FIXME: Validate pointers before releasing them
@@ -24,11 +22,6 @@ impl Drop for EngineInternal {
             ffi::qmlbind_application_release(self.app);
         }
     }
-}
-
-pub struct Engine {
-    // i: Arc<EngineInternal>,
-    i: EngineInternal,
 }
 
 
@@ -44,20 +37,9 @@ impl Engine {
         assert!(!app.is_null());
         let engine = unsafe { ffi::qmlbind_engine_new() };
         assert!(!engine.is_null());
-
-        // let i = Arc::new(EngineInternal {
-        //     app: app,
-        //     engine: engine,
-        // });
-        //
-        // Engine {
-        //     i: i
-        // }
         Engine {
-            i: EngineInternal {
-                app: app,
-                engine: engine,
-            }
+            app: app,
+            engine: engine,
         }
     }
 }
