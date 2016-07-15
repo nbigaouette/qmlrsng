@@ -39,7 +39,6 @@ install:
   - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then brew install qt5; fi
 
 
-# Test libqmlbind-sys only for now
 script:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then source /opt/qt${QT_VER}/bin/qt${QT_VER}-env.sh; fi
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then export QT_DIR=/opt/qt${QT_VER}; fi
@@ -47,3 +46,4 @@ script:
   - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then export PATH=/usr/local/opt/qt5/bin:${PATH}; fi
   - which qmake
   - sh -c 'cd libqmlbind-sys && cargo build --verbose'
+  - cargo test --verbose
