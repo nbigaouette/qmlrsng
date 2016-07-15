@@ -11,6 +11,7 @@ matrix:
     - os: osx
       env: QT_BASE=57
 
+cache: cargo
 
 sudo: required
 dist: trusty
