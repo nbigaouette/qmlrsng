@@ -9,4 +9,4 @@ license = "MIT/Apache-2.0"
 readme = "README.md"
 
 [dependencies]
-libqmlbind-sys = {version = "0.0.1", path = "libqmlbind-sys"}
+libqmlbind-sys = {version = "0.0.2", path = "libqmlbind-sys"}
