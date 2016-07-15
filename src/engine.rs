@@ -44,4 +44,8 @@ impl Engine {
             engine: engine,
         }
     }
+
+    pub fn get_engine(&self) -> *mut ffi::qmlbind_engine {
+        self.engine
+    }
 }
