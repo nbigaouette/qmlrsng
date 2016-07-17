@@ -57,4 +57,12 @@ impl Component {
 
         component_option
     }
+
+    pub fn create(&self) -> Option<ComponentInstance> {
+        // FIXME: Proper error handling
+        let instance = unsafe { ffi::qmlbind_component_create(self.component) };
+        Some(ComponentInstance {
+            instance: instance
+        })
+    }
 }
