@@ -8,7 +8,7 @@ fn main() {
     let engine = qmlrs::Engine::new();
 
     // Create a component by loading a QML file
-    let component = qmlrs::Component::load_path(&engine, "examples/hello_orld.qml")
+    let component = qmlrs::Component::load_path(&engine, "examples/hello_world.qml")
                                         .expect("Failed to create QML component from file");
 
     // Instanciate a component
