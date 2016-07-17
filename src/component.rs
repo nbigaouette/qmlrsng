@@ -1,7 +1,6 @@
 extern crate libc;
 extern crate libqmlbind_sys as ffi;
 
-use std;
 use engine;
 
 use std::ffi::CString;
