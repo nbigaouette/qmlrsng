@@ -3,7 +3,7 @@ extern crate libqmlbind_sys as ffi;
 
 use engine;
 
-use std::ffi::CString;
+use std::ffi::{CString,CStr};
 
 
 pub struct Component {
@@ -45,14 +45,14 @@ impl Component {
 
             // Verify error
             unsafe {
-                let errorString = ffi::qmlbind_component_get_error_string(component);
-                println!("errorString: {:?}", errorString);
+                let error_string = ffi::qmlbind_component_get_error_string(component);
+                if error_string.is_null() {
+                    component_option = Some(Component { component: component })
+                } else {
+                    let error_char = CStr::from_ptr(ffi::qmlbind_string_get_chars(error_string));
+                    println!("Error loading component: {:?}", error_char);
+                }
             }
-
-            // let errorChar = ffi::qmlbind_string_get_chars(errorString);
-            // println!("errorChar: {:?}", errorChar);
-
-            component_option = Some(Component { component: component })
         }
 
         component_option
