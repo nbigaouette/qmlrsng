@@ -49,7 +49,7 @@ impl Engine {
         self.engine
     }
 
-    pub fn start(&self) {
+    pub fn exec(&self) {
         let exit_code = unsafe {
             ffi::qmlbind_application_exec(self.app)
         };

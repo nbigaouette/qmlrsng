@@ -15,5 +15,5 @@ fn main() {
     let instance = component.create();
 
     // Start the QML engine
-    engine.start();
+    engine.exec();
 }
