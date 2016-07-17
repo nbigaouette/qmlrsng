@@ -48,4 +48,10 @@ impl Engine {
     pub fn get_engine(&self) -> *mut ffi::qmlbind_engine {
         self.engine
     }
+
+    pub fn start(&self) {
+        let exit_code = unsafe {
+            ffi::qmlbind_application_exec(self.app)
+        };
+    }
 }
