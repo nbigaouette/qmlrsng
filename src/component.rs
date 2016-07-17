@@ -30,8 +30,18 @@ impl Component {
             let s = CString::new(path).unwrap();
             unsafe { ffi::qmlbind_component_load_path(component, s.as_ptr() ); }
 
+            // Verify error
+            unsafe {
+                let errorString = ffi::qmlbind_component_get_error_string(component);
+                println!("errorString: {:?}", errorString);
+            }
+
+            // let errorChar = ffi::qmlbind_string_get_chars(errorString);
+            // println!("errorChar: {:?}", errorChar);
+
             component_option = Some(Component { component: component })
         }
+
         component_option
     }
 }
