@@ -12,7 +12,10 @@ fn main() {
                                         .expect("Failed to create QML component from file");
 
     // Instanciate a component
-    let instance = component.create();
+    let instance = component.create().unwrap();
+
+    let width = instance.get_property("width").unwrap();
+    println!("width: {:?}", width);
 
     // Start the QML engine
     engine.exec();

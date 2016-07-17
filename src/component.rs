@@ -66,3 +66,21 @@ impl Component {
         })
     }
 }
+
+impl ComponentInstance {
+    // FIXME: Change to Result
+    pub fn get_property(&self, property: &str) -> Option<f64> {
+        // FIXME: Set Result instead of unwrapping
+        let s = CString::new(property).unwrap();
+        let value_ptr = unsafe { ffi::qmlbind_value_get_property(self.instance, s.as_ptr()) };
+
+        assert!(!value_ptr.is_null());
+
+        let property_value = unsafe { ffi::qmlbind_value_get_number(value_ptr) };
+
+        unsafe { ffi::qmlbind_value_release(value_ptr) };
+
+        Some(property_value)
+    }
+
+}
