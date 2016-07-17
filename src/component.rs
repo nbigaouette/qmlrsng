@@ -19,6 +19,19 @@ impl Drop for Component {
     }
 }
 
+pub struct ComponentInstance {
+    instance: *mut ffi::qmlbind_value,
+}
+
+impl Drop for ComponentInstance {
+    fn drop(&mut self) {
+        unsafe {
+            assert!(!self.instance.is_null());
+            ffi::qmlbind_value_release(self.instance);
+        }
+    }
+}
+
 
 impl Component {
     // FIXME: Change to Result instead of Option
