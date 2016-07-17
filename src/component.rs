@@ -24,13 +24,14 @@ impl Component {
     // FIXME: Change to Result instead of Option
     pub fn load_path(engine: &engine::Engine, path: &str) -> Option<Component> {
         let component = unsafe { ffi::qmlbind_component_new(engine.get_engine()) };
-        if component.is_null() {
-            None
-        } else {
+        let mut component_option: Option<Component> = None;
+        if !component.is_null() {
             // FIXME: Remove unwrap
             let s = CString::new(path).unwrap();
             unsafe { ffi::qmlbind_component_load_path(component, s.as_ptr() ); }
-            Some(Component { component: component })
+
+            component_option = Some(Component { component: component })
         }
+        component_option
     }
 }
