@@ -1,0 +1,1 @@
+../libqmlbind-sys/examples/hello_world.qml
