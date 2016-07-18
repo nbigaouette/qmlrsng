@@ -17,6 +17,9 @@ fn main() {
     let width = instance.get_property("width").unwrap();
     println!("width: {:?}", width);
 
+    instance.set_property("width", 1200);
+
+
     // Start the QML engine
     engine.exec();
 }

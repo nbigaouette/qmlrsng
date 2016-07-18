@@ -1,7 +1,9 @@
 extern crate libc;
 extern crate libqmlbind_sys as ffi;
 
+
 use engine;
+use num;
 
 use std::ffi::{CString,CStr};
 
@@ -81,6 +83,15 @@ impl ComponentInstance {
         unsafe { ffi::qmlbind_value_release(value_ptr) };
 
         Some(property_value)
+    }
+
+    pub fn set_property<F: num::ToDoublePrecision>(&self, property: &str, new_value: F) {
+        let s = CString::new(property).unwrap();
+
+        let new_value = unsafe { ffi::qmlbind_value_new_number(new_value.to_f64()) };
+        assert!(!new_value.is_null());
+
+        unsafe { ffi::qmlbind_value_set_property(self.instance, s.as_ptr(), new_value) };
     }
 
 }
