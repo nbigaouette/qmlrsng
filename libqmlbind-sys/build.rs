@@ -1,6 +1,60 @@
 use std::path::PathBuf;
 use std::process::Command;
+use std::io;
 use std::env;
+
+fn qt_dir_by_qmake() -> io::Result<PathBuf> {
+    let mut qmake_cmd = Command::new("qmake");
+    qmake_cmd.arg(&"-query");
+
+    let qmake_cmd_output = qmake_cmd.output().expect("no qmake output");
+    let qmake_out = String::from_utf8(qmake_cmd_output.stdout).expect("qmake output not readable");
+    let output = qmake_out.split_whitespace();
+
+    let qt_dir = PathBuf::from({
+        let mut qt_dir = String::new();
+        for i in output {
+            let mut v = i.split(":");
+            let tag = v.next();
+            let _ = match tag  {
+                Some("QT_INSTALL_PREFIX") => { 
+                    qt_dir = v.next()
+                        .expect("QT_INSTALL_PREFIX not readable")
+                        .to_string();},
+                _ => ()
+            };
+            let _ = match tag {
+                Some("QT_VERSION") => {
+                    let version = v.next(); 
+                    println!("    QT_VERSION={:?}",version);},
+                _ => ()
+            };   
+        }
+        qt_dir
+    });
+    Ok(qt_dir)
+}
+
+fn qt_dir_from_home(target: &str) -> PathBuf {
+    println!("Environnement variable 'QT_DIR' not set!");
+    println!("Defaulting to ${{HOME}}/Qt/${{QT_VER}}/${{QT_COMP}} where:");
+    let home_dir = env::home_dir().map(|p| PathBuf::from(p)).unwrap();
+    let default_qt_ver = "5.7".to_string();
+    let default_qt_comp = if target.contains("linux") {
+        "gcc_64".to_string()
+    } else if target.contains("darwin") {
+        "clang_64".to_string()
+    } else {
+        panic!("Unsuported platform in gallery's build.rs!")
+    };
+    println!("    QT_VER:  {}", default_qt_ver);
+    println!("    QT_COMP: {}", default_qt_comp);
+    let qt_dir_default = home_dir.join("Qt")
+                            .join(env::var("QT_VER").unwrap_or(default_qt_ver))
+                            .join(env::var("QT_COMP").unwrap_or(default_qt_comp));
+    qt_dir_default 
+}
+
 
 
 fn main() {
@@ -16,23 +70,9 @@ fn main() {
     let libqmlbind_build_dir = libqmlbind_dir.join("build");
 
     let qt_dir = env::var("QT_DIR").map(|p| PathBuf::from(p)).unwrap_or({
-        println!("Environnement variable 'QT_DIR' not set!");
-        println!("Defaulting to ${{HOME}}/Qt/${{QT_VER}}/${{QT_COMP}} where:");
-        let home_dir = env::home_dir().map(|p| PathBuf::from(p)).unwrap();
-        let default_qt_ver = "5.7".to_string();
-        let default_qt_comp = if target.contains("linux") {
-            "gcc_64".to_string()
-        } else if target.contains("darwin") {
-            "clang_64".to_string()
-        } else {
-            panic!("Unsuported platform in gallery's build.rs!")
-        };
-        println!("    QT_VER:  {}", default_qt_ver);
-        println!("    QT_COMP: {}", default_qt_comp);
-        let qt_dir_default = home_dir.join("Qt")
-                                  .join(env::var("QT_VER").unwrap_or(default_qt_ver))
-                                  .join(env::var("QT_COMP").unwrap_or(default_qt_comp));
-        qt_dir_default
+        qt_dir_by_qmake().unwrap_or({
+            qt_dir_from_home(&target)
+        })
     });
     println!("Using Qt directory: {:?}", qt_dir);
     println!("Use QT_DIR environment variable to overwrite.");
